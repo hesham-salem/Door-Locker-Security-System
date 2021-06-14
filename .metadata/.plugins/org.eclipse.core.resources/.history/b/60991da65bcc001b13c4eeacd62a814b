@@ -1,0 +1,25 @@
+/*
+ * HMI_ECU.C
+ *
+ *  Created on: Jun 13, 2021
+ *      Author: hesham
+ */
+
+#include"HMI_ECU.h"
+
+uint8 key=0;
+
+int main()
+{
+LCD_init();
+
+while(1)
+{
+	key =KeyPad_getPressedKey();
+	key =itoa(key);
+	LCD_intgerToString(key);
+	//LCD_displayCharacter(key);
+	_delay_ms(1000);
+
+}
+}
