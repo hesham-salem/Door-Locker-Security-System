@@ -25,7 +25,6 @@ EEPROM_init();
 //UART_sendByte('q');
 //UART_sendString("hesham");
 
-EE
 while(1)
 {
 
