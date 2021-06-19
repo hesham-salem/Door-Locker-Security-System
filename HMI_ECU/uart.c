@@ -1,5 +1,5 @@
-/* test
- * uart.c
+//* test
+ /* uart.c
  *
  *  Created on: May 29, 2021
  *      Author: hesham
@@ -11,7 +11,7 @@ void UART_init(UART_configurationType * config)
 UCSRB=0;
 UCSRC=0;
 /* enables */
-	if(config->mode=="normal")
+	if(!strcmp(config->mode,"normal"))
 	{
 CLEAR_BIT(UCSRA,U2X);
 UBRRL=((F_CPU /(16*config->buadRate))-1);
@@ -72,7 +72,7 @@ SET_BIT(UCSRB,RXEN);
 SET_BIT(UCSRB,TXEN);
 }
 
-uint8 UART_recieveByte(void)
+uint8 UART_receiveByte(void)
 {
 	while(BIT_IS_CLEAR(UCSRA,RXC)); /* wait until RXC  flag be 1 it means that there is data not read */
 
@@ -88,30 +88,25 @@ void UART_sendByte(const uint8 data)
 		 * the UDR register is not empty now */
 	//	UDR = data;
 }
-void UART_sendString(const uint8 *str)
+void UART_sendString(uint8 *str)
 {
-	for(uint8 i=0;str[i]!='\0';i++)
-	{
-	UART_sendByte(str[i]);
-	}
+	uint8 i = 0;
+		while(str[i] != '\0')
+		{
+			UART_sendByte(str[i]);
+			i++;
+		}
 	UART_sendByte('#');
-}
 
+}
 void UART_receiveString(uint8 *str)
 {
-//	uint8 i=0;
-//	for( i=0;UART_recieveByte()!='#';i++)
-//	{
-//		str[i]=UART_recieveByte();
-//	}
-//	str[i]='\0';
-
 	uint8 i = 0;
-	str[i]=UART_recieveByte();
-	while(str[i]!='#')
-	{
-		i++;
-		str[i]=UART_recieveByte();
-	}
-	str[i]='\0';
+		str[i] = UART_receiveByte();
+		while(str[i] != '#')
+		{
+			i++;
+			str[i] = UART_receiveByte();
+		}
+		str[i] = '\0';
 }

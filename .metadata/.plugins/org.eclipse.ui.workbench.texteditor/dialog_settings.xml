@@ -8,11 +8,15 @@
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="UART_recieveByte"/>
+			<item value="recieve"/>
+			<item value="receive"/>
 			<item value="USBS"/>
 			<item value="UPM"/>
 			<item value="return"/>
 		</list>
 		<list key="replacehistory">
+			<item value="receive"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

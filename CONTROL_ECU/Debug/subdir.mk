@@ -5,14 +5,23 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../CONTROL_ECU.c \
+../external_eeprom.c \
+../i2c.c \
+../timer.c \
 ../uart.c 
 
 OBJS += \
 ./CONTROL_ECU.o \
+./external_eeprom.o \
+./i2c.o \
+./timer.o \
 ./uart.o 
 
 C_DEPS += \
 ./CONTROL_ECU.d \
+./external_eeprom.d \
+./i2c.d \
+./timer.d \
 ./uart.d 
 
 

@@ -11,7 +11,5 @@
 #include"lcd.h"
 #include"timer.h"
 #include"uart.h"
-#include"external_eeprom.h"
-
 
 #endif /* HMI_ECU_H_ */

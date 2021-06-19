@@ -15,14 +15,14 @@ typedef struct
 {
 	 uint8 character_size;
 	 uint32 buadRate;
-	 char mode[50];
+	 char mode[20];
 }UART_configurationType;
 typedef uint8 character;
 
 void UART_init(UART_configurationType * config);
-uint8 UART_recieveByte(void);
+uint8 UART_receiveByte(void);
 void UART_sendByte(const uint8 data);
-void UART_sendString(const uint8 *str);
+void UART_sendString(uint8 *str);
 void UART_receiveString(uint8 *str);
 
 
