@@ -10,7 +10,7 @@
  char check_password_stored[20]="";
  char enter_password_stored[20]="";
   uint8 password_stored_flag=0;
-uint8 x =5;
+uint8 set_password_now_flag =0;
   uint8 i=0;
 
 int main(void)
@@ -36,7 +36,7 @@ int main(void)
 
     	    	// first time user enter the password
     	EEPROM_readByte(0x0011,&password_stored_flag);
-    	if((password_stored_flag ==0xAA)&&(i<3))
+    	if((password_stored_flag ==0xAA)&&(i<3)&&(set_password_now_flag==0))
     		 {
     		UART_sendByte('d');
      	   	_delay_ms(10);
@@ -51,23 +51,21 @@ int main(void)
         				i++;
     		 }
     		 }
-    	else if((password_stored_flag ==0xAA)&&(i>=3))
+    	else if((password_stored_flag ==0xAA)&&(i>=3)&&(set_password_now_flag==0))
     		UART_sendByte('B');
 
-    	else if((password_stored_flag !=0xAA))
+    	else if((password_stored_flag !=0xAA)&&(set_password_now_flag==0))
     	{
         	UART_sendByte('s');
-        //	if(BIT_IS_SET(UCSRA,TXC))
     	UART_receiveString(password_stored);
-
-
-
         	_delay_ms(100);
     	EEPROM_writeString(0x0512,password_stored);
     	_delay_ms(10);
     	EEPROM_writeByte(0X0011,0xAA);
     	password_stored_flag=0xAA;
-
+    	set_password_now_flag=0xAA;
+    	if(UART_receiveByte()==13)
+    		i=i+0; //temp
     	}
 
     }

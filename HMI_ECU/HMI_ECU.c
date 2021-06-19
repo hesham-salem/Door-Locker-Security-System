@@ -10,10 +10,13 @@
  volatile uint8 key=0;
 uint8 str[100]="123";
 uint8 enter=1;
-uint8 strrr[16]="";
+uint8 password1[16]="";
+uint8 password2[16]="";
+uint8 confirm_key;
+
 volatile uint8 data;
 void intgerToString(int data);
-void readPassword();
+void readPassword(uint8 *data);
 
 UART_configurationType UART_config ;
 int main()
@@ -35,27 +38,46 @@ data=UART_receiveByte();
 
 LCD_displayCharacter('loop');
 
-	if(data=='d')
+	if(data=='s')
 	{
+
+		while(1)
+				{
+				LCD_clearScreen();
+				LCD_displayString("set password");
+				readPassword(password1);
+				_delay_ms(500);
+				LCD_clearScreen();
+				LCD_displayString("confirm password");
+				readPassword(password2);
+				_delay_ms(500);
+				LCD_clearScreen();
+
+				if(!strcmp(password1,password2))
+				{	LCD_clearScreen();
+					LCD_displayString("saved");
+					UART_sendString(password2);
+					break;
+					}
+				}
 		LCD_clearScreen();
-		LCD_displayString("set password");
-		readPassword();
-		 	 UART_sendString(strrr);
-
-	 	LCD_clearScreen();
-		LCD_displayString(strrr);
-
-
+		LCD_displayString("press enter to open");
+		_delay_ms(500);
+		confirm_key=KeyPad_getPressedKey();
+		if(confirm_key==13)
+		UART_sendByte('O');
 	}
 
-	else if(data=='s')
+	else if(data=='d')
 	{
 		LCD_clearScreen();
-		LCD_displayString("enter password  ");
-		readPassword();
-		 UART_sendString(strrr);
-		LCD_clearScreen();
-		LCD_displayString(strrr);
+				LCD_displayString("rest pass 1 ,open 2");
+				//readPassword();
+
+				 	 UART_sendString(password1);
+
+			 	LCD_clearScreen();
+			//	LCD_displayString(strrr);
 	}
 	else if(data=='B')
 	{
@@ -73,7 +95,7 @@ void intgerToString(int data)
 	itoa(data,buff,10); /* 10 for decimal base */
 }
 
- void readPassword()
+ void readPassword(uint8 *data)
  {
 	// key =KeyPad_getPressedKey();
 
@@ -84,6 +106,6 @@ void intgerToString(int data)
 	 	if(key==13)
 	 		break;
 	 	intgerToString(key);
-	 	strcat(strrr,buff);
+	 	strcat(data,buff);
 	 	}
  }

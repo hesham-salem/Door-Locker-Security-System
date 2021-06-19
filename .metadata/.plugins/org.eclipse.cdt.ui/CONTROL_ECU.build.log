@@ -1,4 +1,4 @@
-22:11:36 **** Build of configuration Debug for project CONTROL_ECU ****
+23:55:02 **** Build of configuration Debug for project CONTROL_ECU ****
 make all 
 Building file: ../CONTROL_ECU.c
 Invoking: AVR Compiler
@@ -122,15 +122,15 @@ AVR Memory Usage
 ----------------
 Device: atmega16
 
-Program:    8708 bytes (53.1% Full)
+Program:    8760 bytes (53.5% Full)
 (.text + .data + .bootloader)
 
-Data:        166 bytes (16.2% Full)
+Data:        167 bytes (16.3% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-22:11:36 Build Finished. 0 errors, 16 warnings. (took 268ms)
+23:55:02 Build Finished. 0 errors, 16 warnings. (took 267ms)
 

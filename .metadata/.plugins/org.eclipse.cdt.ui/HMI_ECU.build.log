@@ -1,4 +1,4 @@
-22:04:21 **** Build of configuration Debug for project HMI_ECU ****
+23:55:41 **** Build of configuration Debug for project HMI_ECU ****
 make all 
 Building file: ../HMI_ECU.c
 Invoking: AVR Compiler
@@ -11,27 +11,69 @@ In file included from ../micro_config.h:22:0,
  # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
    ^
 ../HMI_ECU.c: In function ‘main’:
-../HMI_ECU.c:36:22: warning: character constant too long for its type
+../HMI_ECU.c:39:22: warning: character constant too long for its type
  LCD_displayCharacter('loop');
                       ^
-../HMI_ECU.c:36:22: warning: large integer implicitly truncated to unsigned type [-Woverflow]
-../HMI_ECU.c:41:21: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
-   LCD_displayString("set password");
+../HMI_ECU.c:39:22: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+../HMI_ECU.c:47:23: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+     LCD_displayString("set password");
+                       ^
+In file included from ../HMI_ECU.h:11:0,
+                 from ../HMI_ECU.c:8:
+../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
+ void LCD_displayString(uint8 *str);
+      ^
+../HMI_ECU.c:51:23: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+     LCD_displayString("confirm password");
+                       ^
+In file included from ../HMI_ECU.h:11:0,
+                 from ../HMI_ECU.c:8:
+../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
+ void LCD_displayString(uint8 *str);
+      ^
+../HMI_ECU.c:56:16: warning: pointer targets in passing argument 1 of ‘strcmp’ differ in signedness [-Wpointer-sign]
+     if(!strcmp(password1,password2))
+                ^
+In file included from ../timer.h:13:0,
+                 from ../HMI_ECU.h:12,
+                 from ../HMI_ECU.c:8:
+/usr/lib/avr/include/string.h:287:12: note: expected ‘const char *’ but argument is of type ‘uint8 * {aka unsigned char *}’
+ extern int strcmp(const char *, const char *) __ATTR_PURE__;
+            ^
+../HMI_ECU.c:56:26: warning: pointer targets in passing argument 2 of ‘strcmp’ differ in signedness [-Wpointer-sign]
+     if(!strcmp(password1,password2))
+                          ^
+In file included from ../timer.h:13:0,
+                 from ../HMI_ECU.h:12,
+                 from ../HMI_ECU.c:8:
+/usr/lib/avr/include/string.h:287:12: note: expected ‘const char *’ but argument is of type ‘uint8 * {aka unsigned char *}’
+ extern int strcmp(const char *, const char *) __ATTR_PURE__;
+            ^
+../HMI_ECU.c:58:24: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+      LCD_displayString("saved");
+                        ^
+In file included from ../HMI_ECU.h:11:0,
+                 from ../HMI_ECU.c:8:
+../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
+ void LCD_displayString(uint8 *str);
+      ^
+../HMI_ECU.c:64:21: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+   LCD_displayString("press enter to open");
                      ^
 In file included from ../HMI_ECU.h:11:0,
                  from ../HMI_ECU.c:8:
 ../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  void LCD_displayString(uint8 *str);
       ^
-../HMI_ECU.c:54:21: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
-   LCD_displayString("enter password  ");
-                     ^
+../HMI_ECU.c:74:23: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+     LCD_displayString("rest pass 1 ,open 2");
+                       ^
 In file included from ../HMI_ECU.h:11:0,
                  from ../HMI_ECU.c:8:
 ../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  void LCD_displayString(uint8 *str);
       ^
-../HMI_ECU.c:63:21: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+../HMI_ECU.c:85:21: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
    LCD_displayString("bazzer  ");
                      ^
 In file included from ../HMI_ECU.h:11:0,
@@ -40,12 +82,12 @@ In file included from ../HMI_ECU.h:11:0,
  void LCD_displayString(uint8 *str);
       ^
 ../HMI_ECU.c: In function ‘intgerToString’:
-../HMI_ECU.c:73:2: warning: implicit declaration of function ‘itoa’ [-Wimplicit-function-declaration]
+../HMI_ECU.c:95:2: warning: implicit declaration of function ‘itoa’ [-Wimplicit-function-declaration]
   itoa(data,buff,10); /* 10 for decimal base */
   ^
 ../HMI_ECU.c: In function ‘readPassword’:
-../HMI_ECU.c:87:11: warning: pointer targets in passing argument 1 of ‘strcat’ differ in signedness [-Wpointer-sign]
-    strcat(strrr,buff);
+../HMI_ECU.c:109:11: warning: pointer targets in passing argument 1 of ‘strcat’ differ in signedness [-Wpointer-sign]
+    strcat(data,buff);
            ^
 In file included from ../timer.h:13:0,
                  from ../HMI_ECU.h:12,
@@ -53,9 +95,9 @@ In file included from ../timer.h:13:0,
 /usr/lib/avr/include/string.h:248:14: note: expected ‘char *’ but argument is of type ‘uint8 * {aka unsigned char *}’
  extern char *strcat(char *, const char *);
               ^
-../HMI_ECU.c:87:17: warning: passing argument 2 of ‘strcat’ discards ‘volatile’ qualifier from pointer target type [-Wdiscarded-qualifiers]
-    strcat(strrr,buff);
-                 ^
+../HMI_ECU.c:109:16: warning: passing argument 2 of ‘strcat’ discards ‘volatile’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+    strcat(data,buff);
+                ^
 In file included from ../timer.h:13:0,
                  from ../HMI_ECU.h:12,
                  from ../HMI_ECU.c:8:
@@ -157,15 +199,15 @@ AVR Memory Usage
 ----------------
 Device: atmega16
 
-Program:    9270 bytes (56.6% Full)
+Program:   10094 bytes (61.6% Full)
 (.text + .data + .bootloader)
 
-Data:        296 bytes (28.9% Full)
+Data:        360 bytes (35.2% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-22:04:21 Build Finished. 0 errors, 21 warnings. (took 367ms)
+23:55:41 Build Finished. 0 errors, 26 warnings. (took 268ms)
 
