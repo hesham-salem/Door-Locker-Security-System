@@ -24,7 +24,7 @@ typedef struct
 void TIMER_init( TIMER_configurationType * config);
 void TIMER_setCompare(uint16 compareValue);
 void TIMER_setNormal(uint8 initValue);
-void TIMER_setCallBack(void(*a_ptr)(void));
+void TIMER_setCallBackPtr(void(*a_ptr)(void));
 void TIMER_setpwm(uint8 dutyCycle);
 void TIMER_stop();
 

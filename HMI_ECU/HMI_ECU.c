@@ -12,7 +12,10 @@ uint8 str[100]="123";
 uint8 enter=1;
 uint8 password1[16]="";
 uint8 password2[16]="";
+uint8 password[16]="";
+
 uint8 confirm_key;
+uint8 confirm_key2;
 
 volatile uint8 data;
 void intgerToString(int data);
@@ -65,24 +68,44 @@ LCD_displayCharacter('loop');
 		_delay_ms(500);
 		confirm_key=KeyPad_getPressedKey();
 		if(confirm_key==13)
-		UART_sendByte('O');
+		{
+		UART_sendByte('o');
+		LCD_clearScreen();
+		}
 	}
 
 	else if(data=='d')
 	{
-		LCD_clearScreen();
-				LCD_displayString("rest pass 1 ,open 2");
-				//readPassword();
+		while(1)
+		{	LCD_clearScreen();
+				LCD_displayString("enter password");
+				readPassword(password);
 
-				 	 UART_sendString(password1);
-
+				 	 UART_sendString(password);
+				 	uint8 temp_data=UART_receiveByte();
+				 	 if(temp_data=='w')
+				 	 {
 			 	LCD_clearScreen();
-			//	LCD_displayString(strrr);
+				LCD_displayString("press set 1, open 2");
+				confirm_key2=KeyPad_getPressedKey();
+				_delay_ms(400);
+						if(confirm_key2==1)
+						UART_sendByte('s');
+						else if(confirm_key2==2)
+						UART_sendByte('o');
+						break;
+				 	 }
+				 	 else if(temp_data=='B')
+				 		 {LCD_clearScreen();
+				 		 break;
+				 		 }
 	}
+	}
+
 	else if(data=='B')
 	{
 		LCD_clearScreen();
-		LCD_displayString("bazzer  ");
+
 	}
 
 }

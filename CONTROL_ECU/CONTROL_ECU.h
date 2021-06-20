@@ -10,5 +10,5 @@
 #include "uart.h"
 #include "external_eeprom.h"
 #include <string.h>
-
+#include "timer.h"
 #endif /* CONTROL_ECU_H_ */

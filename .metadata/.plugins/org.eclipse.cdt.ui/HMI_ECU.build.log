@@ -1,4 +1,4 @@
-23:55:41 **** Build of configuration Debug for project HMI_ECU ****
+01:31:23 **** Incremental Build of configuration Debug for project HMI_ECU ****
 make all 
 Building file: ../HMI_ECU.c
 Invoking: AVR Compiler
@@ -11,11 +11,11 @@ In file included from ../micro_config.h:22:0,
  # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
    ^
 ../HMI_ECU.c: In function ‘main’:
-../HMI_ECU.c:39:22: warning: character constant too long for its type
+../HMI_ECU.c:42:22: warning: character constant too long for its type
  LCD_displayCharacter('loop');
                       ^
-../HMI_ECU.c:39:22: warning: large integer implicitly truncated to unsigned type [-Woverflow]
-../HMI_ECU.c:47:23: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+../HMI_ECU.c:42:22: warning: large integer implicitly truncated to unsigned type [-Woverflow]
+../HMI_ECU.c:50:23: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
      LCD_displayString("set password");
                        ^
 In file included from ../HMI_ECU.h:11:0,
@@ -23,7 +23,7 @@ In file included from ../HMI_ECU.h:11:0,
 ../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  void LCD_displayString(uint8 *str);
       ^
-../HMI_ECU.c:51:23: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+../HMI_ECU.c:54:23: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
      LCD_displayString("confirm password");
                        ^
 In file included from ../HMI_ECU.h:11:0,
@@ -31,7 +31,7 @@ In file included from ../HMI_ECU.h:11:0,
 ../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  void LCD_displayString(uint8 *str);
       ^
-../HMI_ECU.c:56:16: warning: pointer targets in passing argument 1 of ‘strcmp’ differ in signedness [-Wpointer-sign]
+../HMI_ECU.c:59:16: warning: pointer targets in passing argument 1 of ‘strcmp’ differ in signedness [-Wpointer-sign]
      if(!strcmp(password1,password2))
                 ^
 In file included from ../timer.h:13:0,
@@ -40,7 +40,7 @@ In file included from ../timer.h:13:0,
 /usr/lib/avr/include/string.h:287:12: note: expected ‘const char *’ but argument is of type ‘uint8 * {aka unsigned char *}’
  extern int strcmp(const char *, const char *) __ATTR_PURE__;
             ^
-../HMI_ECU.c:56:26: warning: pointer targets in passing argument 2 of ‘strcmp’ differ in signedness [-Wpointer-sign]
+../HMI_ECU.c:59:26: warning: pointer targets in passing argument 2 of ‘strcmp’ differ in signedness [-Wpointer-sign]
      if(!strcmp(password1,password2))
                           ^
 In file included from ../timer.h:13:0,
@@ -49,7 +49,7 @@ In file included from ../timer.h:13:0,
 /usr/lib/avr/include/string.h:287:12: note: expected ‘const char *’ but argument is of type ‘uint8 * {aka unsigned char *}’
  extern int strcmp(const char *, const char *) __ATTR_PURE__;
             ^
-../HMI_ECU.c:58:24: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+../HMI_ECU.c:61:24: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
       LCD_displayString("saved");
                         ^
 In file included from ../HMI_ECU.h:11:0,
@@ -57,7 +57,7 @@ In file included from ../HMI_ECU.h:11:0,
 ../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  void LCD_displayString(uint8 *str);
       ^
-../HMI_ECU.c:64:21: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+../HMI_ECU.c:67:21: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
    LCD_displayString("press enter to open");
                      ^
 In file included from ../HMI_ECU.h:11:0,
@@ -65,28 +65,28 @@ In file included from ../HMI_ECU.h:11:0,
 ../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  void LCD_displayString(uint8 *str);
       ^
-../HMI_ECU.c:74:23: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
-     LCD_displayString("rest pass 1 ,open 2");
+../HMI_ECU.c:81:23: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+     LCD_displayString("enter password");
                        ^
 In file included from ../HMI_ECU.h:11:0,
                  from ../HMI_ECU.c:8:
 ../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  void LCD_displayString(uint8 *str);
       ^
-../HMI_ECU.c:85:21: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
-   LCD_displayString("bazzer  ");
-                     ^
+../HMI_ECU.c:90:23: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
+     LCD_displayString("press set 1, open 2");
+                       ^
 In file included from ../HMI_ECU.h:11:0,
                  from ../HMI_ECU.c:8:
 ../lcd.h:46:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  void LCD_displayString(uint8 *str);
       ^
 ../HMI_ECU.c: In function ‘intgerToString’:
-../HMI_ECU.c:95:2: warning: implicit declaration of function ‘itoa’ [-Wimplicit-function-declaration]
+../HMI_ECU.c:119:2: warning: implicit declaration of function ‘itoa’ [-Wimplicit-function-declaration]
   itoa(data,buff,10); /* 10 for decimal base */
   ^
 ../HMI_ECU.c: In function ‘readPassword’:
-../HMI_ECU.c:109:11: warning: pointer targets in passing argument 1 of ‘strcat’ differ in signedness [-Wpointer-sign]
+../HMI_ECU.c:133:11: warning: pointer targets in passing argument 1 of ‘strcat’ differ in signedness [-Wpointer-sign]
     strcat(data,buff);
            ^
 In file included from ../timer.h:13:0,
@@ -95,7 +95,7 @@ In file included from ../timer.h:13:0,
 /usr/lib/avr/include/string.h:248:14: note: expected ‘char *’ but argument is of type ‘uint8 * {aka unsigned char *}’
  extern char *strcat(char *, const char *);
               ^
-../HMI_ECU.c:109:16: warning: passing argument 2 of ‘strcat’ discards ‘volatile’ qualifier from pointer target type [-Wdiscarded-qualifiers]
+../HMI_ECU.c:133:16: warning: passing argument 2 of ‘strcat’ discards ‘volatile’ qualifier from pointer target type [-Wdiscarded-qualifiers]
     strcat(data,buff);
                 ^
 In file included from ../timer.h:13:0,
@@ -105,84 +105,6 @@ In file included from ../timer.h:13:0,
  extern char *strcat(char *, const char *);
               ^
 Finished building: ../HMI_ECU.c
- 
-Building file: ../keypad.c
-Invoking: AVR Compiler
-avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"keypad.d" -MT"keypad.o" -c -o "keypad.o" "../keypad.c"
-In file included from ../micro_config.h:22:0,
-                 from ../keypad.h:14,
-                 from ../keypad.c:12:
-/usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
- # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
-   ^
-../keypad.c: In function ‘KeyPad_4x4_adjustSwitchNumber’:
-../keypad.c:114:1: warning: control reaches end of non-void function [-Wreturn-type]
- }
- ^
-Finished building: ../keypad.c
- 
-Building file: ../lcd.c
-Invoking: AVR Compiler
-avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"lcd.d" -MT"lcd.o" -c -o "lcd.o" "../lcd.c"
-In file included from ../micro_config.h:22:0,
-                 from ../lcd.h:19,
-                 from ../lcd.c:13:
-/usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
- # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
-   ^
-../lcd.c: In function ‘LCD_intgerToString’:
-../lcd.c:96:2: warning: implicit declaration of function ‘itoa’ [-Wimplicit-function-declaration]
-  itoa(data,buff,10); /* 10 for decimal base */
-  ^
-../lcd.c:97:20: warning: pointer targets in passing argument 1 of ‘LCD_displayString’ differ in signedness [-Wpointer-sign]
-  LCD_displayString(buff);
-                    ^
-../lcd.c:56:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
- void LCD_displayString(uint8 *str)
-      ^
-Finished building: ../lcd.c
- 
-Building file: ../timer.c
-Invoking: AVR Compiler
-avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"timer.d" -MT"timer.o" -c -o "timer.o" "../timer.c"
-In file included from ../micro_config.h:22:0,
-                 from ../timer.h:11,
-                 from ../timer.c:8:
-/usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
- # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
-   ^
-../timer.c: In function ‘__vector_19’:
-../timer.c:14:3: warning: function with qualified void return type called
-   g_callBackPtr();
-   ^
-../timer.c: In function ‘__vector_9’:
-../timer.c:20:3: warning: function with qualified void return type called
-   g_callBackPtr();
-   ^
-../timer.c: In function ‘__vector_6’:
-../timer.c:26:4: warning: function with qualified void return type called
-    g_callBackPtr();
-    ^
-../timer.c: In function ‘TIMER_setCallBackPtr’:
-../timer.c:226:1: warning: function return types not compatible due to ‘volatile’
- g_callBackPtr=a_ptr;
- ^
-Finished building: ../timer.c
- 
-Building file: ../uart.c
-Invoking: AVR Compiler
-avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"uart.d" -MT"uart.o" -c -o "uart.o" "../uart.c"
-In file included from ../micro_config.h:22:0,
-                 from ../uart.h:11,
-                 from ../uart.c:7:
-/usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
- # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
-   ^
-../uart.c: In function ‘UART_init’:
-../uart.c:14:6: warning: implicit declaration of function ‘strcmp’ [-Wimplicit-function-declaration]
-  if(!strcmp(config->mode,"normal"))
-      ^
-Finished building: ../uart.c
  
 Building target: HMI_ECU.elf
 Invoking: AVR C Linker
@@ -199,15 +121,15 @@ AVR Memory Usage
 ----------------
 Device: atmega16
 
-Program:   10094 bytes (61.6% Full)
+Program:   10412 bytes (63.5% Full)
 (.text + .data + .bootloader)
 
-Data:        360 bytes (35.2% Full)
+Data:        383 bytes (37.4% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-23:55:41 Build Finished. 0 errors, 26 warnings. (took 268ms)
+01:31:23 Build Finished. 0 errors, 14 warnings. (took 170ms)
 

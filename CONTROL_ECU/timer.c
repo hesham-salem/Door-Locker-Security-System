@@ -234,6 +234,7 @@ case 0:
 	TCCR0&=~(1<<CS00)&~(1<<CS01)&~(1<<CS02);
 	break;
 case 1:
+	TCCR1B&=~(1<<CS10)&~(1<<CS11)&~(1<<CS12);
 	break;
 
 }
