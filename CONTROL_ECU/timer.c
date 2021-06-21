@@ -55,7 +55,7 @@ ISR(TIMER2_OVF_vect) {
 }
 
 /***************************************************************
- * 					functions definition 						*
+ * 					functions definition 			*
  * *************************************************************
  */
 /* configurate by passing timer  configuration structure */
@@ -72,7 +72,7 @@ void TIMER_init(TIMER_configurationType *config) {
 
 
 /***************************************************************
-* 						0	TIMER0								*
+* 						0	TIMER0		*
 * *************************************************************/
 	if (config->timerNumber == 0) {
 		TCCR0 = 0; /* put zeros into all bits in the register */
@@ -94,7 +94,7 @@ void TIMER_init(TIMER_configurationType *config) {
 
 		}
 /***************************************************************
- * 					0-0 select the mode for TIMER0						*
+ * 					0-0 select the mode for TIMER0	*
 * *************************************************************
 */
 		if (!strcmp(config->mode, "compare"))
@@ -129,7 +129,7 @@ void TIMER_init(TIMER_configurationType *config) {
 
 
 /****************************************************
- * 		0-2 normal  mode for TIMER0		             *
+ * 		0-2 normal  mode for TIMER0		    *
  * ***************************************************
  */
 
@@ -144,7 +144,7 @@ void TIMER_init(TIMER_configurationType *config) {
 
 			}
 /****************************************************
- * 			0-3 PWM  mode for TIMER0		             *
+ * 			0-3 PWM  mode for TIMER0	   *
  * ***************************************************
 								 */
 		else if (!strcmp(config->mode, "pwm")) {
@@ -170,8 +170,8 @@ void TIMER_init(TIMER_configurationType *config) {
 		}
 	}
 
-/********************************************************
- * 					1 TIMER1						*
+/****************************************************
+ * 					1 TIMER1				*
 * ***************************************************
 */
 
@@ -200,7 +200,7 @@ void TIMER_init(TIMER_configurationType *config) {
 		}
 
 /***************************************************************
-	 * 					1.0 select the mode for TIMER1						*
+	 * 					1.0 select the mode for TIMER1	*
 * *************************************************************
 */
 
@@ -232,7 +232,7 @@ void TIMER_init(TIMER_configurationType *config) {
 							enable interrupt for compare mode */
 			TIMSK = (1 << OCIE1A);
 /****************************************************
-* 		1-2 normal  mode for TIMER1		             *
+* 		1-2 normal  mode for TIMER1		      *
 * ***************************************************
 */
 		} else if (!strcmp(config->mode, "normal"))
@@ -246,7 +246,7 @@ void TIMER_init(TIMER_configurationType *config) {
 
 
 /****************************************************
- * 			1-3 PWM  mode for TIMER1 A		             *
+ * 			1-3 PWM  mode for TIMER1 A		  *
  * ***************************************************/
 		} else if (!strcmp(config->mode, "pwm")) {
 			/* WGM10=1 ,  WGM11=1 , WGM12=1 and WGM13=1 */
@@ -263,7 +263,7 @@ void TIMER_init(TIMER_configurationType *config) {
 
 		}
 /***************************************************************
-* 						2	TIMER2								*
+* 						2	TIMER2						*
  * *************************************************************/
 		if (config->timerNumber == 2) {
 			TCCR2 = 0;/* put zeros into all bits in the register */
@@ -292,7 +292,7 @@ void TIMER_init(TIMER_configurationType *config) {
 			}
 
 /************************************************************
-* 					2.0 select the mode for TIMER2			*
+* 					2.0 select the mode for TIMER2		*
 * ***********************************************************
 */
 
@@ -327,7 +327,7 @@ void TIMER_init(TIMER_configurationType *config) {
 			}
 
 /****************************************************
-* 		2-2 normal  mode for TIMER2		             *
+* 		2-2 normal  mode for TIMER2		     *
  * ***************************************************
 					 */
 			else if (!strcmp(config->mode, "normal")) {
@@ -340,7 +340,7 @@ void TIMER_init(TIMER_configurationType *config) {
 
 
 /****************************************************
- * 			2-3 PWM  mode for TIMER2		          *
+ * 			2-3 PWM  mode for TIMER2	     *
  * ***************************************************/
 
 			} else if (!strcmp(config->mode, "pwm")) {
@@ -370,9 +370,9 @@ void TIMER_init(TIMER_configurationType *config) {
 	}
 
 
-/***************************************************************
+/**********************************************************
  * 			 setting functions definition 			*
- * *************************************************************
+ * *******************************************************
  */
 
 /* function to set compare value for compare mode */
