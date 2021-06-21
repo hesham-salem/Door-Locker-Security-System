@@ -1,4 +1,4 @@
-22:04:39 **** Build of configuration Debug for project CONTROL_ECU ****
+22:23:39 **** Build of configuration Debug for project CONTROL_ECU ****
 make all 
 Building file: ../CONTROL_ECU.c
 Invoking: AVR Compiler
@@ -99,23 +99,23 @@ In file included from ../micro_config.h:22:0,
    g_callBackPtr();
    ^
 ../timer.c: In function ‘TIMER_init’:
-../timer.c:218:33: warning: "/*" within comment [-Wcomment]
+../timer.c:216:33: warning: "/*" within comment [-Wcomment]
      * select compare mode --->> /* WGM10=0 ,  WGM11=0 , WGM12=1 and WGM13=0 */
                                  ^
 ../timer.c: In function ‘TIMER_setCallBackPtr’:
-../timer.c:434:2: warning: function return types not compatible due to ‘volatile’
+../timer.c:431:2: warning: function return types not compatible due to ‘volatile’
   g_callBackPtr = a_ptr; /*g_callBackPtr is shared global variable */
   ^
-In file included from ../micro_config.h:22:0,
-                 from ../uart.h:11,
-                 from ../uart.c:7:
-/usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
- # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
 Finished building: ../timer.c
  
 Building file: ../uart.c
 Invoking: AVR Compiler
 avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"uart.d" -MT"uart.o" -c -o "uart.o" "../uart.c"
+In file included from ../micro_config.h:22:0,
+                 from ../uart.h:11,
+                 from ../uart.c:7:
+/usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
+ # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
    ^
 ../uart.c: In function ‘UART_init’:
 ../uart.c:14:6: warning: implicit declaration of function ‘strcmp’ [-Wimplicit-function-declaration]
@@ -148,5 +148,5 @@ Data:        180 bytes (17.6% Full)
 Finished building: sizedummy
  
 
-22:04:39 Build Finished. 0 errors, 20 warnings. (took 346ms)
+22:23:39 Build Finished. 0 errors, 20 warnings. (took 268ms)
 
