@@ -1,8 +1,11 @@
-/*
- * timer.h
+/*  module name :timer driver
  *
- *  Created on: Jun 11, 2021
- *      Author: hesham
+ *  file name :timer.h
+ *
+ *  description :the header file of timer driver
+ *
+ *
+ *   Author: Hesham Salem
  */
 
 #ifndef TIMER_H_
@@ -11,15 +14,25 @@
 #include "micro_config.h"
 #include "std_types.h"
 #include <string.h>
+
+/***************************************************************
+ * 		structure used in timer configuration 						*
+ * *************************************************************
+ */
 typedef struct
 {
 	uint8 timerNumber;
-	char mode[20];
-	uint16 prescaler;
-	char compareMatchMode[20];
-	char pwmMode[20];
+	char mode[20];/* string copy --->> ( "compare" ,"normal" or "PWM") */
+	uint16 prescaler; /* (1,64,256 or 1024) */
+	char compareMatchMode[20]; /* string copy --->> ( "toggle" ,"clear" or "set")  or the default will be oc disconnected */
+	char pwmMode[20];/* string copy --->> ( "inverting"  or "non-inverting") */
 
 }TIMER_configurationType;
+
+/***************************************************************
+ * 					functions prototyping 						*
+ * *************************************************************
+ */
 
 void TIMER_init( TIMER_configurationType * config);
 void TIMER_setCompare(uint16 compareValue);

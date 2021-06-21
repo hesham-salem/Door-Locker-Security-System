@@ -1,4 +1,4 @@
-01:00:31 **** Build of configuration Debug for project CONTROL_ECU ****
+22:04:39 **** Build of configuration Debug for project CONTROL_ECU ****
 make all 
 Building file: ../CONTROL_ECU.c
 Invoking: AVR Compiler
@@ -69,37 +69,53 @@ Building file: ../timer.c
 Invoking: AVR Compiler
 avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"timer.d" -MT"timer.o" -c -o "timer.o" "../timer.c"
 In file included from ../micro_config.h:22:0,
-                 from ../timer.h:11,
-                 from ../timer.c:8:
+                 from ../timer.h:14,
+                 from ../timer.c:11:
 /usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
  # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
    ^
 ../timer.c: In function ‘__vector_19’:
-../timer.c:14:3: warning: function with qualified void return type called
-   g_callBackPtr();
+../timer.c:25:3: warning: function with qualified void return type called
+   g_callBackPtr();/* point to callBack function */
    ^
 ../timer.c: In function ‘__vector_9’:
-../timer.c:20:3: warning: function with qualified void return type called
+../timer.c:31:3: warning: function with qualified void return type called
+   g_callBackPtr();
+   ^
+../timer.c: In function ‘__vector_8’:
+../timer.c:37:3: warning: function with qualified void return type called
    g_callBackPtr();
    ^
 ../timer.c: In function ‘__vector_6’:
-../timer.c:26:4: warning: function with qualified void return type called
-    g_callBackPtr();
-    ^
+../timer.c:43:3: warning: function with qualified void return type called
+   g_callBackPtr();
+   ^
+../timer.c: In function ‘__vector_3’:
+../timer.c:48:3: warning: function with qualified void return type called
+   g_callBackPtr();
+   ^
+../timer.c: In function ‘__vector_4’:
+../timer.c:54:3: warning: function with qualified void return type called
+   g_callBackPtr();
+   ^
+../timer.c: In function ‘TIMER_init’:
+../timer.c:218:33: warning: "/*" within comment [-Wcomment]
+     * select compare mode --->> /* WGM10=0 ,  WGM11=0 , WGM12=1 and WGM13=0 */
+                                 ^
 ../timer.c: In function ‘TIMER_setCallBackPtr’:
-../timer.c:226:1: warning: function return types not compatible due to ‘volatile’
- g_callBackPtr=a_ptr;
- ^
-Finished building: ../timer.c
- 
-Building file: ../uart.c
-Invoking: AVR Compiler
-avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"uart.d" -MT"uart.o" -c -o "uart.o" "../uart.c"
+../timer.c:434:2: warning: function return types not compatible due to ‘volatile’
+  g_callBackPtr = a_ptr; /*g_callBackPtr is shared global variable */
+  ^
 In file included from ../micro_config.h:22:0,
                  from ../uart.h:11,
                  from ../uart.c:7:
 /usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
  # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+Finished building: ../timer.c
+ 
+Building file: ../uart.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"uart.d" -MT"uart.o" -c -o "uart.o" "../uart.c"
    ^
 ../uart.c: In function ‘UART_init’:
 ../uart.c:14:6: warning: implicit declaration of function ‘strcmp’ [-Wimplicit-function-declaration]
@@ -122,7 +138,7 @@ AVR Memory Usage
 ----------------
 Device: atmega16
 
-Program:    9284 bytes (56.7% Full)
+Program:   10408 bytes (63.5% Full)
 (.text + .data + .bootloader)
 
 Data:        180 bytes (17.6% Full)
@@ -132,5 +148,5 @@ Data:        180 bytes (17.6% Full)
 Finished building: sizedummy
  
 
-01:00:31 Build Finished. 0 errors, 16 warnings. (took 270ms)
+22:04:39 Build Finished. 0 errors, 20 warnings. (took 346ms)
 
