@@ -674,25 +674,24 @@ _delay_loop_2(uint16_t __count)
      44e:	a8 c0       	rjmp	.+336    	; 0x5a0 <__stack+0x141>
 	{
 		while(1)
-		{
+		{	LCD_clearScreen();
+     450:	0e 94 46 0b 	call	0x168c	; 0x168c <LCD_clearScreen>
 				LCD_displayString("enter password");
-     450:	8a e0       	ldi	r24, 0x0A	; 10
-     452:	91 e0       	ldi	r25, 0x01	; 1
-     454:	0e 94 ce 0a 	call	0x159c	; 0x159c <LCD_displayString>
+     454:	8a e0       	ldi	r24, 0x0A	; 10
+     456:	91 e0       	ldi	r25, 0x01	; 1
+     458:	0e 94 ce 0a 	call	0x159c	; 0x159c <LCD_displayString>
 				readPassword(password);
-     458:	8f e9       	ldi	r24, 0x9F	; 159
-     45a:	91 e0       	ldi	r25, 0x01	; 1
-     45c:	0e 94 ef 02 	call	0x5de	; 0x5de <readPassword>
+     45c:	8f e9       	ldi	r24, 0x9F	; 159
+     45e:	91 e0       	ldi	r25, 0x01	; 1
+     460:	0e 94 ef 02 	call	0x5de	; 0x5de <readPassword>
 
 				 	 UART_sendString(password);
-     460:	8f e9       	ldi	r24, 0x9F	; 159
-     462:	91 e0       	ldi	r25, 0x01	; 1
-     464:	0e 94 de 10 	call	0x21bc	; 0x21bc <UART_sendString>
+     464:	8f e9       	ldi	r24, 0x9F	; 159
+     466:	91 e0       	ldi	r25, 0x01	; 1
+     468:	0e 94 de 10 	call	0x21bc	; 0x21bc <UART_sendString>
 				 	uint8 temp_data=UART_receiveByte();
-     468:	0e 94 a8 10 	call	0x2150	; 0x2150 <UART_receiveByte>
-     46c:	8d 87       	std	Y+13, r24	; 0x0d
-				 	LCD_clearScreen();
-     46e:	0e 94 46 0b 	call	0x168c	; 0x168c <LCD_clearScreen>
+     46c:	0e 94 a8 10 	call	0x2150	; 0x2150 <UART_receiveByte>
+     470:	8d 87       	std	Y+13, r24	; 0x0d
 				 	 if(temp_data=='w')
      472:	8d 85       	ldd	r24, Y+13	; 0x0d
      474:	87 37       	cpi	r24, 0x77	; 119
