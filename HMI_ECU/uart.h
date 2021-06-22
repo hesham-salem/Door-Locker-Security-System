@@ -1,23 +1,36 @@
-/*
- * uart.h
+/*  module name :uart driver
  *
- *  Created on: May 29, 2021
- *      Author: hesham
+ *  file name :uart.h
+ *
+ *  description :the header file of uart driver
+ *
+ *  Created on: May 24, 2021
+ *
+ *   Author: Hesham Salem
  */
-
 #ifndef UART_H_
 #define UART_H_
 #include "common_macros.h"
 #include "micro_config.h"
 #include "std_types.h"
 
+/***************************************************************
+ * 		structure used in UART configuration 						*
+ * *************************************************************
+ */
 typedef struct
 {
-	 uint8 character_size;
+	 uint8 character_size; /* 5,6,7,8 or 9 data bits */
 	 uint32 buadRate;
-	 char mode[20];
+	 char mode[20]; /* string copy --->>("normal" or "double speed" ) */
 }UART_configurationType;
-typedef uint8 character;
+
+
+
+/***************************************************************
+ * 					functions prototyping 						*
+ * *************************************************************
+ */
 
 void UART_init(UART_configurationType * config);
 uint8 UART_receiveByte(void);

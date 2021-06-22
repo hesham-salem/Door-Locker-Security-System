@@ -699,9 +699,9 @@ END GROUP
  .bss.buzzer_flag
                 0x00000000008000f2        0x1 ./CONTROL_ECU.o
                 0x00000000008000f2                buzzer_flag
- .bss.count.1951
+ .bss.count.1950
                 0x00000000008000f3        0x1 ./CONTROL_ECU.o
- .bss.count.1958
+ .bss.count.1957
                 0x00000000008000f4        0x1 ./CONTROL_ECU.o
  .bss.g_callBackPtr
                 0x00000000008000f5        0x2 ./timer.o
@@ -743,21 +743,21 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x0000000000000000     0x2ec8
+.stab           0x0000000000000000     0x2ebc
  *(.stab)
- .stab          0x0000000000000000      0xf24 ./CONTROL_ECU.o
- .stab          0x0000000000000f24      0x780 ./external_eeprom.o
+ .stab          0x0000000000000000      0xf18 ./CONTROL_ECU.o
+ .stab          0x0000000000000f18      0x780 ./external_eeprom.o
                                         0x9e4 (size before relaxing)
- .stab          0x00000000000016a4      0x4ec ./i2c.o
+ .stab          0x0000000000001698      0x4ec ./i2c.o
                                         0x768 (size before relaxing)
- .stab          0x0000000000001b90      0xcd8 ./timer.o
+ .stab          0x0000000000001b84      0xcd8 ./timer.o
                                         0xf60 (size before relaxing)
- .stab          0x0000000000002868      0x660 ./uart.o
-                                        0x8e8 (size before relaxing)
+ .stab          0x000000000000285c      0x660 ./uart.o
+                                        0x8dc (size before relaxing)
 
-.stabstr        0x0000000000000000     0x1530
+.stabstr        0x0000000000000000     0x1518
  *(.stabstr)
- .stabstr       0x0000000000000000     0x1530 ./CONTROL_ECU.o
+ .stabstr       0x0000000000000000     0x1518 ./CONTROL_ECU.o
 
 .stab.excl
  *(.stab.excl)

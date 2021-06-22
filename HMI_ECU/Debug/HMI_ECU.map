@@ -700,21 +700,21 @@ END GROUP
 .user_signatures
  *(.user_signatures*)
 
-.stab           0x0000000000000000     0x3084
+.stab           0x0000000000000000     0x306c
  *(.stab)
- .stab          0x0000000000000000      0xd74 ./HMI_ECU.o
- .stab          0x0000000000000d74      0x4b0 ./keypad.o
+ .stab          0x0000000000000000      0xd68 ./HMI_ECU.o
+ .stab          0x0000000000000d68      0x4b0 ./keypad.o
                                         0x720 (size before relaxing)
- .stab          0x0000000000001224      0xe7c ./lcd.o
+ .stab          0x0000000000001218      0xe7c ./lcd.o
                                        0x10e0 (size before relaxing)
- .stab          0x00000000000020a0      0x960 ./timer.o
+ .stab          0x0000000000002094      0x960 ./timer.o
                                         0xc00 (size before relaxing)
- .stab          0x0000000000002a00      0x684 ./uart.o
-                                        0x8e8 (size before relaxing)
+ .stab          0x00000000000029f4      0x678 ./uart.o
+                                        0x8dc (size before relaxing)
 
-.stabstr        0x0000000000000000     0x1479
+.stabstr        0x0000000000000000     0x144a
  *(.stabstr)
- .stabstr       0x0000000000000000     0x1479 ./HMI_ECU.o
+ .stabstr       0x0000000000000000     0x144a ./HMI_ECU.o
 
 .stab.excl
  *(.stab.excl)

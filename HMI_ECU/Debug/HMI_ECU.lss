@@ -9,21 +9,21 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, ALLOC, LOAD, DATA
   2 .bss          00000061  0080017e  0080017e  00002940  2**0
                   ALLOC
-  3 .stab         00003084  00000000  00000000  00002940  2**2
+  3 .stab         0000306c  00000000  00000000  00002940  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      00001479  00000000  00000000  000059c4  2**0
+  4 .stabstr      0000144a  00000000  00000000  000059ac  2**0
                   CONTENTS, READONLY, DEBUGGING
-  5 .comment      00000011  00000000  00000000  00006e3d  2**0
+  5 .comment      00000011  00000000  00000000  00006df6  2**0
                   CONTENTS, READONLY
-  6 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00006e50  2**2
+  6 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  00006e08  2**2
                   CONTENTS, READONLY
-  7 .debug_info   0000052e  00000000  00000000  00006e8c  2**0
+  7 .debug_info   0000052e  00000000  00000000  00006e44  2**0
                   CONTENTS, READONLY, DEBUGGING
-  8 .debug_abbrev 000004e7  00000000  00000000  000073ba  2**0
+  8 .debug_abbrev 000004e7  00000000  00000000  00007372  2**0
                   CONTENTS, READONLY, DEBUGGING
-  9 .debug_line   0000001a  00000000  00000000  000078a1  2**0
+  9 .debug_line   0000001a  00000000  00000000  00007859  2**0
                   CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    000001af  00000000  00000000  000078bb  2**0
+ 10 .debug_str    000001af  00000000  00000000  00007873  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -4779,12 +4779,12 @@ case 1:
     1e50:	08 95       	ret
 
 00001e52 <UART_init>:
- *      Author: hesham
  */
-#include"uart.h"
+
+/* configurate by passing UART  configuration structure */
 
 void UART_init(UART_configurationType * config)
-{UCSRA=0;
+{/* put zeros into all bits in the registers */
     1e52:	0f 93       	push	r16
     1e54:	1f 93       	push	r17
     1e56:	cf 93       	push	r28
@@ -4794,6 +4794,7 @@ void UART_init(UART_configurationType * config)
     1e5e:	de b7       	in	r29, 0x3e	; 62
     1e60:	9a 83       	std	Y+2, r25	; 0x02
     1e62:	89 83       	std	Y+1, r24	; 0x01
+UCSRA=0;
     1e64:	8b e2       	ldi	r24, 0x2B	; 43
     1e66:	90 e0       	ldi	r25, 0x00	; 0
     1e68:	fc 01       	movw	r30, r24
@@ -4820,7 +4821,7 @@ UCSRC=0;
     1e8c:	09 f0       	breq	.+2      	; 0x1e90 <UART_init+0x3e>
     1e8e:	60 c0       	rjmp	.+192    	; 0x1f50 <UART_init+0xfe>
 	{
-CLEAR_BIT(UCSRA,U2X);
+CLEAR_BIT(UCSRA,U2X); /* disable double speed bit */
     1e90:	8b e2       	ldi	r24, 0x2B	; 43
     1e92:	90 e0       	ldi	r25, 0x00	; 0
     1e94:	2b e2       	ldi	r18, 0x2B	; 43
@@ -4830,6 +4831,7 @@ CLEAR_BIT(UCSRA,U2X);
     1e9c:	2d 7f       	andi	r18, 0xFD	; 253
     1e9e:	fc 01       	movw	r30, r24
     1ea0:	20 83       	st	Z, r18
+/* store buad rate in register UBRR(16bits) ---> left register 8 bits and right 8bits */
 UBRRL=((F_CPU /(16*config->buadRate))-1);
     1ea2:	09 e2       	ldi	r16, 0x29	; 41
     1ea4:	10 e0       	ldi	r17, 0x00	; 0
@@ -4931,7 +4933,7 @@ UBRRH=((F_CPU /(16*config->buadRate))-1)>>8;
     1f60:	09 f0       	breq	.+2      	; 0x1f64 <UART_init+0x112>
     1f62:	57 c0       	rjmp	.+174    	; 0x2012 <UART_init+0x1c0>
 	{
-		SET_BIT(UCSRA,U2X);
+		SET_BIT(UCSRA,U2X);/* enable double speed bit */
     1f64:	8b e2       	ldi	r24, 0x2B	; 43
     1f66:	90 e0       	ldi	r25, 0x00	; 0
     1f68:	2b e2       	ldi	r18, 0x2B	; 43
@@ -4941,6 +4943,7 @@ UBRRH=((F_CPU /(16*config->buadRate))-1)>>8;
     1f70:	22 60       	ori	r18, 0x02	; 2
     1f72:	fc 01       	movw	r30, r24
     1f74:	20 83       	st	Z, r18
+		/* store buad rate in register UBRR(16bits) ---> left register 8 bits and right 8bits */
 		UBRRL=((F_CPU /(8*config->buadRate))-1);
     1f76:	09 e2       	ldi	r16, 0x29	; 41
     1f78:	10 e0       	ldi	r17, 0x00	; 0
@@ -5036,8 +5039,7 @@ SET_BIT(UCSRC,URSEL);
     2022:	20 83       	st	Z, r18
 /* the UART frame parameters*/
 /* character size */
-//SET_BIT(UCSRC,UCSZ0);
-//SET_BIT(UCSRC,UCSZ1);
+
 switch(config->character_size)
     2024:	89 81       	ldd	r24, Y+1	; 0x01
     2026:	9a 81       	ldd	r25, Y+2	; 0x02
@@ -5062,6 +5064,7 @@ switch(config->character_size)
     204c:	55 c0       	rjmp	.+170    	; 0x20f8 <UART_init+0x2a6>
 {
 case 5:
+	/* UCSZ0 =0, UCSZ1=0,UCSZ2=0 */
 	CLEAR_BIT(UCSRC,UCSZ0);
     204e:	80 e4       	ldi	r24, 0x40	; 64
     2050:	90 e0       	ldi	r25, 0x00	; 0
@@ -5086,6 +5089,7 @@ case 5:
     2072:	54 c0       	rjmp	.+168    	; 0x211c <UART_init+0x2ca>
 
 case 6:
+	/* UCSZ0 =0, UCSZ1=1,UCSZ2=0 */
 	CLEAR_BIT(UCSRC,UCSZ0);
     2074:	80 e4       	ldi	r24, 0x40	; 64
     2076:	90 e0       	ldi	r25, 0x00	; 0
@@ -5109,6 +5113,7 @@ case 6:
 	break;
     2098:	41 c0       	rjmp	.+130    	; 0x211c <UART_init+0x2ca>
 case 7:
+	/* UCSZ0 =1, UCSZ=0,UCSZ2=0 */
 	CLEAR_BIT(UCSRC,UCSZ1);
     209a:	80 e4       	ldi	r24, 0x40	; 64
     209c:	90 e0       	ldi	r25, 0x00	; 0
@@ -5132,6 +5137,7 @@ case 7:
 		break;
     20be:	2e c0       	rjmp	.+92     	; 0x211c <UART_init+0x2ca>
 case 9:
+	/* UCSZ0 =1, UCSZ1=0,UCSZ2=1 */
 	SET_BIT(UCSRC,UCSZ0);
     20c0:	80 e4       	ldi	r24, 0x40	; 64
     20c2:	90 e0       	ldi	r25, 0x00	; 0
@@ -5168,7 +5174,8 @@ case 9:
     20f6:	12 c0       	rjmp	.+36     	; 0x211c <UART_init+0x2ca>
 
 default :
-	//SET_BIT(UCSRC,URSEL);
+	/* the default will be 8bits */
+	/* UCSZ0 =1, UCSZ1=1,UCSZ2=0 */
 	SET_BIT(UCSRC,UCSZ0);
     20f8:	80 e4       	ldi	r24, 0x40	; 64
     20fa:	90 e0       	ldi	r25, 0x00	; 0
@@ -5189,11 +5196,9 @@ default :
     2116:	24 60       	ori	r18, 0x04	; 4
     2118:	fc 01       	movw	r30, r24
     211a:	20 83       	st	Z, r18
-/* write on UBRR instead of ucsrc register */
-//CLEAR_BIT(UCSRC,URSEL);//---------------------------------------<<<<
-/* writing the baud rate prescaler */
-//UBRRL=12;
-//UBRRH=12>>8;
+}
+
+/* enable uart receive and transmit */
 SET_BIT(UCSRB,RXEN);
     211c:	8a e2       	ldi	r24, 0x2A	; 42
     211e:	90 e0       	ldi	r25, 0x00	; 0
@@ -5260,13 +5265,13 @@ void UART_sendByte(const uint8 data)
     217a:	cd b7       	in	r28, 0x3d	; 61
     217c:	de b7       	in	r29, 0x3e	; 62
     217e:	89 83       	std	Y+1, r24	; 0x01
-	UDR=data;
+	UDR=data; /*store data in shift register UDR from less significant bit */
     2180:	8c e2       	ldi	r24, 0x2C	; 44
     2182:	90 e0       	ldi	r25, 0x00	; 0
     2184:	29 81       	ldd	r18, Y+1	; 0x01
     2186:	fc 01       	movw	r30, r24
     2188:	20 83       	st	Z, r18
-	while(BIT_IS_CLEAR(UCSRA,TXC));//wait until send data txc =1;
+	while(BIT_IS_CLEAR(UCSRA,TXC));/*wait until send data txc =1*/
     218a:	00 00       	nop
     218c:	8b e2       	ldi	r24, 0x2B	; 43
     218e:	90 e0       	ldi	r25, 0x00	; 0
@@ -5278,7 +5283,7 @@ void UART_sendByte(const uint8 data)
     219a:	99 27       	eor	r25, r25
     219c:	89 2b       	or	r24, r25
     219e:	b1 f3       	breq	.-20     	; 0x218c <UART_sendByte+0x18>
-	SET_BIT(UCSRA,TXC); //clear the flag as it doesnt clear automatically as ISR
+	SET_BIT(UCSRA,TXC); /*clear the flag as it doesnt clear automatically as no interrupt or ISR*/
     21a0:	8b e2       	ldi	r24, 0x2B	; 43
     21a2:	90 e0       	ldi	r25, 0x00	; 0
     21a4:	2b e2       	ldi	r18, 0x2B	; 43
@@ -5288,10 +5293,7 @@ void UART_sendByte(const uint8 data)
     21ac:	20 64       	ori	r18, 0x40	; 64
     21ae:	fc 01       	movw	r30, r24
     21b0:	20 83       	st	Z, r18
-	//while(BIT_IS_CLEAR(UCSRA,UDRE)){}
-		/* Put the required data in the UDR register and it also clear the UDRE flag as
-		 * the UDR register is not empty now */
-	//	UDR = data;
+
 }
     21b2:	00 00       	nop
     21b4:	0f 90       	pop	r0
@@ -5310,6 +5312,10 @@ void UART_sendString(uint8 *str)
     21c6:	de b7       	in	r29, 0x3e	; 62
     21c8:	9b 83       	std	Y+3, r25	; 0x03
     21ca:	8a 83       	std	Y+2, r24	; 0x02
+	/* send byte by byte until end of string (\0)
+	 * and at the end of string send # as defined pattern because we cant send null
+	 */
+
 	uint8 i = 0;
     21cc:	19 82       	std	Y+1, r1	; 0x01
 		while(str[i] != '\0')
@@ -5330,10 +5336,10 @@ void UART_sendString(uint8 *str)
     21e6:	89 81       	ldd	r24, Y+1	; 0x01
     21e8:	8f 5f       	subi	r24, 0xFF	; 255
     21ea:	89 83       	std	Y+1, r24	; 0x01
-	//	UDR = data;
-}
-void UART_sendString(uint8 *str)
-{
+	/* send byte by byte until end of string (\0)
+	 * and at the end of string send # as defined pattern because we cant send null
+	 */
+
 	uint8 i = 0;
 		while(str[i] != '\0')
     21ec:	89 81       	ldd	r24, Y+1	; 0x01
@@ -5366,7 +5372,7 @@ void UART_sendString(uint8 *str)
 
 00002216 <UART_receiveString>:
 void UART_receiveString(uint8 *str)
-{
+{ /*
     2216:	0f 93       	push	r16
     2218:	1f 93       	push	r17
     221a:	cf 93       	push	r28
@@ -5377,6 +5383,10 @@ void UART_receiveString(uint8 *str)
     2224:	de b7       	in	r29, 0x3e	; 62
     2226:	9b 83       	std	Y+3, r25	; 0x03
     2228:	8a 83       	std	Y+2, r24	; 0x02
+at first receive first byte then check the  pre define pattern # may be empty string ""
+then enter the while loop  and receive byte by byte  until reach pre define pattern #
+and replace it with null '\0' to make string */
+
 	uint8 i = 0;
     222a:	19 82       	std	Y+1, r1	; 0x01
 		str[i] = UART_receiveByte();
@@ -5410,9 +5420,9 @@ void UART_receiveString(uint8 *str)
     225c:	0e 94 a8 10 	call	0x2150	; 0x2150 <UART_receiveByte>
     2260:	f8 01       	movw	r30, r16
     2262:	80 83       	st	Z, r24
-}
-void UART_receiveString(uint8 *str)
-{
+then enter the while loop  and receive byte by byte  until reach pre define pattern #
+and replace it with null '\0' to make string */
+
 	uint8 i = 0;
 		str[i] = UART_receiveByte();
 		while(str[i] != '#')
