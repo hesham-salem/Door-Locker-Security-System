@@ -1672,17 +1672,17 @@ count++;
      ac0:	08 95       	ret
 
 00000ac2 <EEPROM_init>:
-#include "i2c.h"
-#include "external_eeprom.h"
+ * 					functions definition 			*
+ * *************************************************************
+ */
 
-TWI_configurationType TWI_config;
 void EEPROM_init(void)
-{
+{ /* determine the parameter which will pass to I2C driver to communicate with EEPROM */
      ac2:	cf 93       	push	r28
      ac4:	df 93       	push	r29
      ac6:	cd b7       	in	r28, 0x3d	; 61
      ac8:	de b7       	in	r29, 0x3e	; 62
-	TWI_config.baudRate=400000;
+	TWI_config.baudRate=400000; /* baud rate which EEPROM work on */
      aca:	80 e8       	ldi	r24, 0x80	; 128
      acc:	9a e1       	ldi	r25, 0x1A	; 26
      ace:	a6 e0       	ldi	r26, 0x06	; 6
@@ -1693,10 +1693,11 @@ void EEPROM_init(void)
      ade:	b0 93 11 01 	sts	0x0111, r27	; 0x800111 <TWI_config+0x3>
 	TWI_config.prescasler=0;
      ae2:	10 92 12 01 	sts	0x0112, r1	; 0x800112 <TWI_config+0x4>
-	TWI_config.slave_address=0b00001011;
+	TWI_config.slave_address=0b00001011; /* the address of master when receive data from (as slave) form other slaves */
      ae6:	8b e0       	ldi	r24, 0x0B	; 11
      ae8:	80 93 13 01 	sts	0x0113, r24	; 0x800113 <TWI_config+0x5>
 
+	/* passing I2C configuration structure by reference to I2C initialization function */
 TWI_init(&TWI_config);
      aec:	8e e0       	ldi	r24, 0x0E	; 14
      aee:	91 e0       	ldi	r25, 0x01	; 1
@@ -1720,17 +1721,21 @@ uint8 EEPROM_writeByte(uint16 u16addr, uint8 u8data)
      b08:	9a 83       	std	Y+2, r25	; 0x02
      b0a:	89 83       	std	Y+1, r24	; 0x01
      b0c:	6b 83       	std	Y+3, r22	; 0x03
-
+/* send start bit */
 	TWI_start();
      b0e:	0e 94 a5 07 	call	0xf4a	; 0xf4a <TWI_start>
-	if(TWI_getStatus()!=TW_START)
+	if(TWI_getStatus()!=TW_START) /* check the start done */
      b12:	0e 94 10 08 	call	0x1020	; 0x1020 <TWI_getStatus>
      b16:	88 30       	cpi	r24, 0x08	; 8
      b18:	11 f0       	breq	.+4      	; 0xb1e <EEPROM_writeByte+0x22>
-	return 1;
-     b1a:	81 e0       	ldi	r24, 0x01	; 1
+	return ERROR; /* return error if doenst send start bit */
+     b1a:	80 e0       	ldi	r24, 0x00	; 0
      b1c:	27 c0       	rjmp	.+78     	; 0xb6c <EEPROM_writeByte+0x70>
 
+	/* to avoid sending 3 bytes 1  byte for EEPROM address  and 2 bytes  for memory location address
+	 * combine address of EEPROM address (in our case 24c16 EEPROM----->>0XA0 ) and last 3 bits of memory location address
+	 * memory location address for 24c16 EEPROM is 11 bits as memory size 2kByte and the memory width is 1 K byte
+	 */
 	TWI_write((uint8)(0xA0|((u16addr&0X0700)>>7)));
      b1e:	89 81       	ldd	r24, Y+1	; 0x01
      b20:	9a 81       	ldd	r25, Y+2	; 0x02
@@ -1743,42 +1748,42 @@ uint8 EEPROM_writeByte(uint16 u16addr, uint8 u8data)
      b2e:	91 95       	neg	r25
      b30:	80 6a       	ori	r24, 0xA0	; 160
      b32:	0e 94 c6 07 	call	0xf8c	; 0xf8c <TWI_write>
-	if(TWI_getStatus()!=TW_MT_SLA_W_ACK)
+	if(TWI_getStatus()!=TW_MT_SLA_W_ACK) /* check the master (MT) receive form slave (SLA) write (w) acknowledge (ACK) */
      b36:	0e 94 10 08 	call	0x1020	; 0x1020 <TWI_getStatus>
      b3a:	88 31       	cpi	r24, 0x18	; 24
      b3c:	11 f0       	breq	.+4      	; 0xb42 <EEPROM_writeByte+0x46>
-		return 2;
-     b3e:	82 e0       	ldi	r24, 0x02	; 2
+		return ERROR;
+     b3e:	80 e0       	ldi	r24, 0x00	; 0
      b40:	15 c0       	rjmp	.+42     	; 0xb6c <EEPROM_writeByte+0x70>
 
-
+/* send the remaining of memory location address =11-3=8 bits */
 	TWI_write((uint8)u16addr);
      b42:	89 81       	ldd	r24, Y+1	; 0x01
      b44:	0e 94 c6 07 	call	0xf8c	; 0xf8c <TWI_write>
-	if(TWI_getStatus()!=TW_MT_DATA_ACK)
+	if(TWI_getStatus()!=TW_MT_DATA_ACK) /* check the master (MT) receive form slave (SLA) DATA (DATA) acknowledge (ACK) */
      b48:	0e 94 10 08 	call	0x1020	; 0x1020 <TWI_getStatus>
      b4c:	88 32       	cpi	r24, 0x28	; 40
      b4e:	11 f0       	breq	.+4      	; 0xb54 <EEPROM_writeByte+0x58>
-			return 0x80;
-     b50:	80 e8       	ldi	r24, 0x80	; 128
+			return ERROR;
+     b50:	80 e0       	ldi	r24, 0x00	; 0
      b52:	0c c0       	rjmp	.+24     	; 0xb6c <EEPROM_writeByte+0x70>
 
 
 	TWI_write(u8data);
      b54:	8b 81       	ldd	r24, Y+3	; 0x03
      b56:	0e 94 c6 07 	call	0xf8c	; 0xf8c <TWI_write>
-	if(TWI_getStatus()!=TW_MT_DATA_ACK)
+	if(TWI_getStatus()!=TW_MT_DATA_ACK) /* check the master (MT) receive form slave (SLA) write (w) acknowledge (ACK) */
      b5a:	0e 94 10 08 	call	0x1020	; 0x1020 <TWI_getStatus>
      b5e:	88 32       	cpi	r24, 0x28	; 40
      b60:	11 f0       	breq	.+4      	; 0xb66 <EEPROM_writeByte+0x6a>
-			return 4;
-     b62:	84 e0       	ldi	r24, 0x04	; 4
+			return ERROR;
+     b62:	80 e0       	ldi	r24, 0x00	; 0
      b64:	03 c0       	rjmp	.+6      	; 0xb6c <EEPROM_writeByte+0x70>
 
-	TWI_stop();
+	TWI_stop(); /* end the frame */
      b66:	0e 94 b9 07 	call	0xf72	; 0xf72 <TWI_stop>
-	return 5;
-     b6a:	85 e0       	ldi	r24, 0x05	; 5
+	return SUCCESS; /* send success if the frame is completed by reach this line */
+     b6a:	81 e0       	ldi	r24, 0x01	; 1
 }
      b6c:	0f 90       	pop	r0
      b6e:	0f 90       	pop	r0
@@ -1843,20 +1848,17 @@ uint8 EEPROM_readByte(uint16 u16addr, uint8 *u8data)
      bce:	80 e0       	ldi	r24, 0x00	; 0
      bd0:	2a c0       	rjmp	.+84     	; 0xc26 <EEPROM_readByte+0xae>
 
-
-		//TWI_write(u8data);
-		//if(TWI_getStatus()!=TW_MT_DATA_ACK)
-			//	return ERROR;
-		TWI_start();
+/* repeat start the frame as in this case master will read from the slave */
+				TWI_start();
      bd2:	0e 94 a5 07 	call	0xf4a	; 0xf4a <TWI_start>
-		if(TWI_getStatus()!=TW_REP_START)
+		if(TWI_getStatus()!=TW_REP_START) /* check the repeated start done */
      bd6:	0e 94 10 08 	call	0x1020	; 0x1020 <TWI_getStatus>
      bda:	80 31       	cpi	r24, 0x10	; 16
      bdc:	11 f0       	breq	.+4      	; 0xbe2 <EEPROM_readByte+0x6a>
 						return ERROR;
      bde:	80 e0       	ldi	r24, 0x00	; 0
      be0:	22 c0       	rjmp	.+68     	; 0xc26 <EEPROM_readByte+0xae>
-
+/* send the address of EEPROM as slave and set the less significant bit to make master read from the slave */
 		TWI_write((uint8)((0xA0)|((u16addr&0X0700)>>7)|1));
      be2:	89 81       	ldd	r24, Y+1	; 0x01
      be4:	9a 81       	ldd	r25, Y+2	; 0x02
@@ -1869,7 +1871,7 @@ uint8 EEPROM_readByte(uint16 u16addr, uint8 *u8data)
      bf2:	91 95       	neg	r25
      bf4:	81 6a       	ori	r24, 0xA1	; 161
      bf6:	0e 94 c6 07 	call	0xf8c	; 0xf8c <TWI_write>
-		if(TWI_getStatus()!=TW_MT_SLA_R_ACK)
+		if(TWI_getStatus()!=TW_MT_SLA_R_ACK)  /* check the master (MT) send  to slave (SLA) read (R) acknowledge (ACK) */
      bfa:	0e 94 10 08 	call	0x1020	; 0x1020 <TWI_getStatus>
      bfe:	80 34       	cpi	r24, 0x40	; 64
      c00:	11 f0       	breq	.+4      	; 0xc06 <EEPROM_readByte+0x8e>
@@ -1878,14 +1880,14 @@ uint8 EEPROM_readByte(uint16 u16addr, uint8 *u8data)
      c04:	10 c0       	rjmp	.+32     	; 0xc26 <EEPROM_readByte+0xae>
 
 
-			*u8data=TWI_read_with_NACK();
+			*u8data=TWI_read_with_NACK(); /* read the byte */
      c06:	0e 94 f9 07 	call	0xff2	; 0xff2 <TWI_read_with_NACK>
      c0a:	28 2f       	mov	r18, r24
      c0c:	8b 81       	ldd	r24, Y+3	; 0x03
      c0e:	9c 81       	ldd	r25, Y+4	; 0x04
      c10:	fc 01       	movw	r30, r24
      c12:	20 83       	st	Z, r18
-			if(TWI_getStatus()!=TW_MR_DATA_NACK)
+			if(TWI_getStatus()!=TW_MR_DATA_NACK) /* check the master (MT) read the byte  from slave (SLA) read (DATA) acknowledge (ACK) */
      c14:	0e 94 10 08 	call	0x1020	; 0x1020 <TWI_getStatus>
      c18:	88 35       	cpi	r24, 0x58	; 88
      c1a:	11 f0       	breq	.+4      	; 0xc20 <EEPROM_readByte+0xa8>
@@ -1924,7 +1926,9 @@ uint8 EEPROM_writeString(uint16 u16addr, uint8* str)
      c4a:	88 8b       	std	Y+16, r24	; 0x10
      c4c:	7b 8b       	std	Y+19, r23	; 0x13
      c4e:	6a 8b       	std	Y+18, r22	; 0x12
-
+	/* send byte by byte until end of string (\0)
+		 * and at the end of string send (\0)
+		 */
 	uint8 i=0;
      c50:	19 82       	std	Y+1, r1	; 0x01
 	for( i=0;str[i]!='\0';i++)
@@ -1932,7 +1936,7 @@ uint8 EEPROM_writeString(uint16 u16addr, uint8* str)
      c54:	88 c0       	rjmp	.+272    	; 0xd66 <EEPROM_writeString+0x132>
 {
 
-
+/* increase the address by base +i */
 	EEPROM_writeByte(u16addr+i,str[i]);
      c56:	89 81       	ldd	r24, Y+1	; 0x01
      c58:	88 2f       	mov	r24, r24
@@ -2089,10 +2093,10 @@ uint8 EEPROM_writeString(uint16 u16addr, uint8* str)
      d5a:	f1 f7       	brne	.-4      	; 0xd58 <EEPROM_writeString+0x124>
      d5c:	9f 87       	std	Y+15, r25	; 0x0f
      d5e:	8e 87       	std	Y+14, r24	; 0x0e
-}
-uint8 EEPROM_writeString(uint16 u16addr, uint8* str)
 {
-
+	/* send byte by byte until end of string (\0)
+		 * and at the end of string send (\0)
+		 */
 	uint8 i=0;
 	for( i=0;str[i]!='\0';i++)
      d60:	89 81       	ldd	r24, Y+1	; 0x01
@@ -2153,6 +2157,10 @@ uint8 EEPROM_readString(uint16 u16addr, uint8 *str)
      db6:	8a 83       	std	Y+2, r24	; 0x02
      db8:	7d 83       	std	Y+5, r23	; 0x05
      dba:	6c 83       	std	Y+4, r22	; 0x04
+	then enter the while loop  and receive byte by byte  until reach null
+	put null '\0' at the end of string
+	increment the address in EEPROM and string buffer index
+	 */
 
 	uint8 i = 0;
      dbc:	19 82       	std	Y+1, r1	; 0x01
@@ -2192,8 +2200,8 @@ uint8 EEPROM_readString(uint16 u16addr, uint8 *str)
      df8:	9b 81       	ldd	r25, Y+3	; 0x03
      dfa:	b9 01       	movw	r22, r18
      dfc:	0e 94 bc 05 	call	0xb78	; 0xb78 <EEPROM_readByte>
-uint8 EEPROM_readString(uint16 u16addr, uint8 *str)
-{
+	increment the address in EEPROM and string buffer index
+	 */
 
 	uint8 i = 0;
 		EEPROM_readByte(u16addr, &str[i]);
@@ -2343,7 +2351,7 @@ void TWI_init(const TWI_configurationType *config)
      f08:	24 81       	ldd	r18, Z+4	; 0x04
      f0a:	fc 01       	movw	r30, r24
      f0c:	20 83       	st	Z, r18
-	 TWAR=config->slave_address<<1;// store slave address (7bits) in the most 7 significant bits
+	 TWAR=config->slave_address<<1;/* store slave address (7bits) in the most 7 significant bits
      f0e:	82 e2       	ldi	r24, 0x22	; 34
      f10:	90 e0       	ldi	r25, 0x00	; 0
      f12:	29 81       	ldd	r18, Y+1	; 0x01
@@ -2353,6 +2361,7 @@ void TWI_init(const TWI_configurationType *config)
      f1a:	22 0f       	add	r18, r18
      f1c:	fc 01       	movw	r30, r24
      f1e:	20 83       	st	Z, r18
+	  the address of master when receive data from (as slave) form other slaves */
 	TWCR|=(1<<TWEN);/* enable TWI module */
      f20:	86 e5       	ldi	r24, 0x56	; 86
      f22:	90 e0       	ldi	r25, 0x00	; 0
@@ -2902,10 +2911,10 @@ ISR(TIMER2_OVF_vect) {
     12ca:	18 95       	reti
 
 000012cc <TIMER_init>:
-/***************************************************************
- * 					functions definition 			*
- * *************************************************************
- */
+
+
+
+
 /* configurate by passing timer  configuration structure */
 void TIMER_init(TIMER_configurationType *config) {
     12cc:	cf 93       	push	r28

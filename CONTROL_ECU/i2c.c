@@ -18,7 +18,8 @@ void TWI_init(const TWI_configurationType *config)
 	/* the equation is SCL frequency = CPU clock frequency /(16+2(TWBR)*4^prescaler */
 	TWBR=((float)F_CPU/config->baudRate +16)/(2*pow(4,config->prescasler));
 	 	TWSR=config->prescasler;/*store prescaler  in first 2 bits (TWPS1 and TWPS0) as other bits read only*/
-	 TWAR=config->slave_address<<1;// store slave address (7bits) in the most 7 significant bits
+	 TWAR=config->slave_address<<1;/* store slave address (7bits) in the most 7 significant bits
+	  the address of master when receive data from (as slave) form other slaves */
 	TWCR|=(1<<TWEN);/* enable TWI module */
 
 }

@@ -58,6 +58,10 @@ ISR(TIMER2_OVF_vect) {
  * 					functions definition 			*
  * *************************************************************
  */
+
+
+
+
 /* configurate by passing timer  configuration structure */
 void TIMER_init(TIMER_configurationType *config) {
 	configPtr = config; /* make passed configuration global */
