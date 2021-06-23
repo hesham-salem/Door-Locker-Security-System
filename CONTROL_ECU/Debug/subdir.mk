@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../CONTROL_ECU.c \
+../actuators.c \
 ../external_eeprom.c \
 ../i2c.c \
 ../timer.c \
@@ -12,6 +13,7 @@ C_SRCS += \
 
 OBJS += \
 ./CONTROL_ECU.o \
+./actuators.o \
 ./external_eeprom.o \
 ./i2c.o \
 ./timer.o \
@@ -19,6 +21,7 @@ OBJS += \
 
 C_DEPS += \
 ./CONTROL_ECU.d \
+./actuators.d \
 ./external_eeprom.d \
 ./i2c.d \
 ./timer.d \

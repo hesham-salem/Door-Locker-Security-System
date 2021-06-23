@@ -1,4 +1,4 @@
-22:25:13 **** Incremental Build of configuration Debug for project CONTROL_ECU ****
+22:12:57 **** Build of configuration Debug for project CONTROL_ECU ****
 make all 
 Building file: ../CONTROL_ECU.c
 Invoking: AVR Compiler
@@ -27,13 +27,19 @@ In file included from ../CONTROL_ECU.h:11:0,
 ../external_eeprom.h:32:7: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  uint8 EEPROM_readString(uint16 u16addr, uint8 *str);
        ^
-../CONTROL_ECU.c:23:8: warning: unused variable ‘data’ [-Wunused-variable]
-  uint8 data;
-        ^
-../CONTROL_ECU.c:22:8: warning: unused variable ‘str’ [-Wunused-variable]
-  uint8 str[20];
-        ^
 Finished building: ../CONTROL_ECU.c
+ 
+Building file: ../actuators.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"actuators.d" -MT"actuators.o" -c -o "actuators.o" "../actuators.c"
+In file included from ../micro_config.h:22:0,
+                 from ../timer.h:14,
+                 from ../actuators.h:10,
+                 from ../actuators.c:7:
+/usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
+ # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+   ^
+Finished building: ../actuators.c
  
 Building file: ../external_eeprom.c
 Invoking: AVR Compiler
@@ -108,9 +114,24 @@ In file included from ../micro_config.h:22:0,
   ^
 Finished building: ../timer.c
  
+Building file: ../uart.c
+Invoking: AVR Compiler
+avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"uart.d" -MT"uart.o" -c -o "uart.o" "../uart.c"
+In file included from ../micro_config.h:22:0,
+                 from ../uart.h:14,
+                 from ../uart.c:12:
+/usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
+ # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
+   ^
+../uart.c: In function ‘UART_init’:
+../uart.c:27:6: warning: implicit declaration of function ‘strcmp’ [-Wimplicit-function-declaration]
+  if(!strcmp(config->mode,"normal"))
+      ^
+Finished building: ../uart.c
+ 
 Building target: CONTROL_ECU.elf
 Invoking: AVR C Linker
-avr-gcc -Wl,-Map,CONTROL_ECU.map -mmcu=atmega16 -o "CONTROL_ECU.elf"  ./CONTROL_ECU.o ./external_eeprom.o ./i2c.o ./timer.o ./uart.o   
+avr-gcc -Wl,-Map,CONTROL_ECU.map -mmcu=atmega16 -o "CONTROL_ECU.elf"  ./CONTROL_ECU.o ./actuators.o ./external_eeprom.o ./i2c.o ./timer.o ./uart.o   
 Finished building target: CONTROL_ECU.elf
  
 Invoking: AVR Create Extended Listing
@@ -123,10 +144,10 @@ AVR Memory Usage
 ----------------
 Device: atmega16
 
-Program:   10400 bytes (63.5% Full)
+Program:   10402 bytes (63.5% Full)
 (.text + .data + .bootloader)
 
-Data:        180 bytes (17.6% Full)
+Data:        244 bytes (23.8% Full)
 (.data + .bss + .noinit)
 
 
