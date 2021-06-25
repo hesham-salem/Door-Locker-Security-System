@@ -1,8 +1,11 @@
-/*
- * CONTROL_ECU.h
+/*  module name :control ECU
  *
- *  Created on: Jun 15, 2021
- *      Author: hesham
+ *  file name :control ECU.c
+ *
+ *  description :the source file of control ECU
+ *
+ *
+ *   Author: Hesham Salem
  */
 
 #ifndef CONTROL_ECU_H_

@@ -1,29 +1,29 @@
-22:12:57 **** Build of configuration Debug for project CONTROL_ECU ****
+21:43:09 **** Build of configuration Debug for project CONTROL_ECU ****
 make all 
 Building file: ../CONTROL_ECU.c
 Invoking: AVR Compiler
 avr-gcc -Wall -g2 -gstabs -O0 -fpack-struct -fshort-enums -ffunction-sections -fdata-sections -std=gnu99 -funsigned-char -funsigned-bitfields -mmcu=atmega16 -DF_CPU=8000000UL -MMD -MP -MF"CONTROL_ECU.d" -MT"CONTROL_ECU.o" -c -o "CONTROL_ECU.o" "../CONTROL_ECU.c"
 In file included from ../micro_config.h:22:0,
                  from ../uart.h:14,
-                 from ../CONTROL_ECU.h:10,
-                 from ../CONTROL_ECU.c:3:
+                 from ../CONTROL_ECU.h:13,
+                 from ../CONTROL_ECU.c:11:
 /usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
  # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
    ^
 ../CONTROL_ECU.c: In function ‘main’:
-../CONTROL_ECU.c:53:30: warning: pointer targets in passing argument 1 of ‘UART_receiveString’ differ in signedness [-Wpointer-sign]
+../CONTROL_ECU.c:68:30: warning: pointer targets in passing argument 1 of ‘UART_receiveString’ differ in signedness [-Wpointer-sign]
            UART_receiveString(enter_password_stored);
                               ^
-In file included from ../CONTROL_ECU.h:10:0,
-                 from ../CONTROL_ECU.c:3:
+In file included from ../CONTROL_ECU.h:13:0,
+                 from ../CONTROL_ECU.c:11:
 ../uart.h:39:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  void UART_receiveString(uint8 *str);
       ^
-../CONTROL_ECU.c:55:33: warning: pointer targets in passing argument 2 of ‘EEPROM_readString’ differ in signedness [-Wpointer-sign]
+../CONTROL_ECU.c:70:33: warning: pointer targets in passing argument 2 of ‘EEPROM_readString’ differ in signedness [-Wpointer-sign]
        EEPROM_readString(0x0512, check_password_stored);
                                  ^
-In file included from ../CONTROL_ECU.h:11:0,
-                 from ../CONTROL_ECU.c:3:
+In file included from ../CONTROL_ECU.h:14:0,
+                 from ../CONTROL_ECU.c:11:
 ../external_eeprom.h:32:7: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  uint8 EEPROM_readString(uint16 u16addr, uint8 *str);
        ^
@@ -144,7 +144,7 @@ AVR Memory Usage
 ----------------
 Device: atmega16
 
-Program:   10402 bytes (63.5% Full)
+Program:   10424 bytes (63.6% Full)
 (.text + .data + .bootloader)
 
 Data:        244 bytes (23.8% Full)
@@ -154,5 +154,5 @@ Data:        244 bytes (23.8% Full)
 Finished building: sizedummy
  
 
-22:12:57 Build Finished. 0 errors, 19 warnings. (took 586ms)
+21:43:09 Build Finished. 0 errors, 19 warnings. (took 324ms)
 
