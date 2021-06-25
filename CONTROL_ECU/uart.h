@@ -23,6 +23,8 @@ typedef struct
 	 uint8 character_size; /* 5,6,7,8 or 9 data bits */
 	 uint32 buadRate;
 	 char mode[20]; /* string copy --->>("normal" or "double speed" ) */
+	 char parity[20];/* 1 or 2*/
+	 uint8 stop_bit_number /* string copy --->>("odd" ,"even" or " disable" ) */
 }UART_configurationType;
 
 

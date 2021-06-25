@@ -1,4 +1,4 @@
-21:43:09 **** Build of configuration Debug for project CONTROL_ECU ****
+22:05:09 **** Build of configuration Debug for project CONTROL_ECU ****
 make all 
 Building file: ../CONTROL_ECU.c
 Invoking: AVR Compiler
@@ -10,16 +10,21 @@ In file included from ../micro_config.h:22:0,
 /usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
  # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
    ^
+In file included from ../CONTROL_ECU.h:13:0,
+                 from ../CONTROL_ECU.c:11:
+../uart.h:28:1: warning: no semicolon at end of struct or union
+ }UART_configurationType;
+ ^
 ../CONTROL_ECU.c: In function ‘main’:
-../CONTROL_ECU.c:68:30: warning: pointer targets in passing argument 1 of ‘UART_receiveString’ differ in signedness [-Wpointer-sign]
+../CONTROL_ECU.c:69:30: warning: pointer targets in passing argument 1 of ‘UART_receiveString’ differ in signedness [-Wpointer-sign]
            UART_receiveString(enter_password_stored);
                               ^
 In file included from ../CONTROL_ECU.h:13:0,
                  from ../CONTROL_ECU.c:11:
-../uart.h:39:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
+../uart.h:41:6: note: expected ‘uint8 * {aka unsigned char *}’ but argument is of type ‘char *’
  void UART_receiveString(uint8 *str);
       ^
-../CONTROL_ECU.c:70:33: warning: pointer targets in passing argument 2 of ‘EEPROM_readString’ differ in signedness [-Wpointer-sign]
+../CONTROL_ECU.c:71:33: warning: pointer targets in passing argument 2 of ‘EEPROM_readString’ differ in signedness [-Wpointer-sign]
        EEPROM_readString(0x0512, check_password_stored);
                                  ^
 In file included from ../CONTROL_ECU.h:14:0,
@@ -123,6 +128,10 @@ In file included from ../micro_config.h:22:0,
 /usr/lib/avr/include/util/delay.h:112:3: warning: #warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed" [-Wcpp]
  # warning "Compiler optimizations disabled; functions from <util/delay.h> won't work as designed"
    ^
+In file included from ../uart.c:12:0:
+../uart.h:28:1: warning: no semicolon at end of struct or union
+ }UART_configurationType;
+ ^
 ../uart.c: In function ‘UART_init’:
 ../uart.c:27:6: warning: implicit declaration of function ‘strcmp’ [-Wimplicit-function-declaration]
   if(!strcmp(config->mode,"normal"))
@@ -144,15 +153,15 @@ AVR Memory Usage
 ----------------
 Device: atmega16
 
-Program:   10424 bytes (63.6% Full)
+Program:   10680 bytes (65.2% Full)
 (.text + .data + .bootloader)
 
-Data:        244 bytes (23.8% Full)
+Data:        260 bytes (25.4% Full)
 (.data + .bss + .noinit)
 
 
 Finished building: sizedummy
  
 
-21:43:09 Build Finished. 0 errors, 19 warnings. (took 324ms)
+22:05:09 Build Finished. 0 errors, 21 warnings. (took 332ms)
 

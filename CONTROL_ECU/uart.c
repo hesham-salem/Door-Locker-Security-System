@@ -81,7 +81,31 @@ default :
 	SET_BIT(UCSRC,UCSZ0);
 	SET_BIT(UCSRC,UCSZ1);
 }
+switch(config->stop_bit_number)
+{
+default : /* STOP BIT =1 */
+	SET_BIT(UCSRC,USBS);
+	break;
+case 2 : /* STOP BIT =2 */
+	CLEAR_BIT(UCSRC,USBS);
+	break;
 
+}
+if(!strcmp(config->parity,"odd"))
+		{
+		SET_BIT(UCSRC,UPM0);
+		SET_BIT(UCSRC,UPM1);
+		}
+else if(!strcmp(config->parity,"even"))
+		{
+		SET_BIT(UCSRC,UPM0);
+		CLEAR_BIT(UCSRC,UPM1);
+		}
+else
+{
+	CLEAR_BIT(UCSRC,UPM0);
+	CLEAR_BIT(UCSRC,UPM1);
+}
 /* enable uart receive and transmit */
 SET_BIT(UCSRB,RXEN);
 SET_BIT(UCSRB,TXEN);

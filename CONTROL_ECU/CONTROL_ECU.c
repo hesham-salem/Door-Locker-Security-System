@@ -30,10 +30,11 @@ int main(void)
 	/* UART initialization */
 		UART_configurationType UART_config ;
 		UART_config.buadRate=9600;
-		UART_config.character_size=8;
-		strcpy(UART_config.mode,"double speed");
-		UART_init(&UART_config);
-
+			UART_config.character_size=8;
+			strcpy(UART_config.mode,"double speed");
+			strcpy(UART_config.parity,"disable");
+			UART_config.stop_bit_number=1;
+			UART_init(&UART_config);
 	/*EEPROM initialization */
 		EEPROM_init();
 
