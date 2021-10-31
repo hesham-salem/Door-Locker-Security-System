@@ -19,7 +19,7 @@
 
 void LCD_init(void)
 {
-LCD_CTRL_PORT_DIR |=(1<<4)|(1<<5)|(1<<6);/* configure control port pins(RS ,R/W ,ENABLE) AS OUTPUT*/
+LCD_CTRL_PORT_DIR |=(1<<RS)|(1<<READWRITE)|(1<<LCD_ENABLE);/* configure control port pins(RS ,R/W ,ENABLE) AS OUTPUT*/
 LCD_DATA_PORT_DIR=0XFF; /* configure the data port as output port */
 LCD_sendCommand(FUNCTION_SET_8_BIT_2LINE); /* using 2 lines + LCD 8 bit mode + 5*7 dot  display mode*/
 LCD_sendCommand(DISPLAY_CURSOR_OFF);
