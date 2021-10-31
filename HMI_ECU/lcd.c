@@ -50,7 +50,7 @@ void LCD_displayCharacter(uint8 data)
 	_delay_ms(1); /*delay for processing Tpw - Tdws = 190ns*/
 	PORTC=data; /* out the required data to output data bus D0-->D7 */
 	_delay_ms(1);/* delay processing command setup time tdsw=60ns */
-	CLEAR_BIT(LCD_CTRL_PORT,6); /* disable LCD so enable pin =0*/
+	CLEAR_BIT(LCD_CTRL_PORT,LCD_ENABLE); /* disable LCD so enable pin =0*/
 	_delay_ms(1); /* delay for processing hold time th =10ns*/
 }
 void LCD_displayString(uint8 *str)
@@ -67,7 +67,7 @@ void LCD_goToRowColumn(uint8 row,uint8 col)
 		address=col;
 		break;
 	case 1:
-		address=0x40+col;
+		address=0x40+col; /* bais adress + offset */
 		break;
 	case 2:
 		address=0x10+col;
